@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LabTrack – Smart Laboratory Equipment Management System</title>
+  <title>LabTrack â€“ Smart Laboratory Equipment Management System</title>
   
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -270,6 +270,180 @@
       position: relative;
       animation: fadeInSlide 0.4s ease-out;
       transition: max-width var(--transition-normal);
+    }
+    #public-equipment-screen {
+      display: none;
+      min-height: 100vh;
+      padding: 28px 16px;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(70, 117, 242, 0.12), transparent 30%),
+        var(--bg-page);
+    }
+    #public-equipment-screen.active {
+      display: flex;
+    }
+    .public-equipment-card {
+      width: 100%;
+      max-width: 680px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-xl);
+    }
+    .public-equipment-heading {
+      padding: 26px 28px;
+      color: #fff;
+      background: linear-gradient(135deg, #0f172a, #1e3a8a 64%, #2455d6);
+    }
+    .public-equipment-brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .public-equipment-brand i {
+      color: #93c5fd;
+      font-size: 18px;
+    }
+    .public-equipment-eyebrow {
+      margin-bottom: 7px;
+      color: #bfdbfe;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    #public-equipment-name {
+      font-size: clamp(22px, 5vw, 30px);
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+      overflow-wrap: anywhere;
+    }
+    .public-equipment-identity {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    #public-equipment-id {
+      padding: 4px 8px;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 6px;
+      color: #fff;
+      font: 600 12px 'JetBrains Mono', monospace;
+    }
+    .public-equipment-badge {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .public-equipment-body {
+      padding: 26px 28px;
+    }
+    .public-equipment-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .public-equipment-fact {
+      min-width: 0;
+      padding: 13px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-subtle);
+    }
+    .public-equipment-fact span {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .public-equipment-fact strong {
+      display: block;
+      color: var(--text-main);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+    .public-equipment-notes {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: var(--primary-subtle);
+    }
+    .public-equipment-notes h2 {
+      margin-bottom: 7px;
+      color: var(--text-muted);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    #public-equipment-notes {
+      color: var(--text-main);
+      font-size: 13px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .public-equipment-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-color);
+    }
+    .public-equipment-footer p {
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+    .public-equipment-unavailable {
+      padding: 28px;
+      text-align: center;
+    }
+    .public-equipment-unavailable i {
+      margin-bottom: 12px;
+      color: var(--warning);
+      font-size: 28px;
+    }
+    .public-equipment-unavailable h1 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+    .public-equipment-unavailable p {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    @media (max-width: 520px) {
+      #public-equipment-screen {
+        padding: 12px;
+        align-items: flex-start;
+      }
+      .public-equipment-heading,
+      .public-equipment-body {
+        padding: 21px 18px;
+      }
+      .public-equipment-facts {
+        grid-template-columns: 1fr;
+      }
+      .public-equipment-footer .btn {
+        width: 100%;
+      }
     }
     @keyframes fadeInSlide {
       from { opacity: 0; transform: translateY(16px); }
@@ -2348,6 +2522,45 @@
 </head>
 <body>
 
+  <main id="public-equipment-screen" aria-live="polite">
+    <article class="public-equipment-card">
+      <div id="public-equipment-details">
+        <header class="public-equipment-heading">
+          <div class="public-equipment-brand"><i class="fa-solid fa-microscope"></i> LabTrack Equipment Record</div>
+          <div class="public-equipment-eyebrow" id="public-equipment-category">Equipment details</div>
+          <h1 id="public-equipment-name"></h1>
+          <div class="public-equipment-identity">
+            <code id="public-equipment-id"></code>
+            <span class="public-equipment-badge" id="public-equipment-status"></span>
+            <span class="public-equipment-badge" id="public-equipment-condition"></span>
+          </div>
+        </header>
+        <div class="public-equipment-body">
+          <div class="public-equipment-facts">
+            <div class="public-equipment-fact"><span>Brand / Maker</span><strong id="public-equipment-brand"></strong></div>
+            <div class="public-equipment-fact"><span>Model</span><strong id="public-equipment-model"></strong></div>
+            <div class="public-equipment-fact"><span>Laboratory Location</span><strong id="public-equipment-location"></strong></div>
+            <div class="public-equipment-fact"><span>Registered</span><strong id="public-equipment-added"></strong></div>
+          </div>
+          <section class="public-equipment-notes">
+            <h2>Specifications &amp; notes</h2>
+            <p id="public-equipment-notes"></p>
+          </section>
+          <footer class="public-equipment-footer">
+            <p>Read-only details embedded in this QR label. Reprint it after equipment changes.</p>
+            <a class="btn btn-primary" id="public-equipment-home" href="./">Open LabTrack</a>
+          </footer>
+        </div>
+      </div>
+      <div class="public-equipment-unavailable" id="public-equipment-unavailable" hidden>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <h1>Equipment details unavailable</h1>
+        <p id="public-equipment-unavailable-message"></p>
+        <a class="btn btn-primary" id="public-equipment-unavailable-home" href="./" style="margin-top:18px;">Open LabTrack</a>
+      </div>
+    </article>
+  </main>
+
   <!-- ==========================================================================
        1. AUTH SCREEN (Login & Registration with Role Switcher)
        ========================================================================== -->
@@ -3242,7 +3455,7 @@
 
           <div class="form-group">
             <label>Laboratory Location / Room</label>
-            <input type="text" id="form-eq-location" class="form-control" placeholder="e.g. Room 201 – Circuits Lab">
+            <input type="text" id="form-eq-location" class="form-control" placeholder="e.g. Room 201 â€“ Circuits Lab">
           </div>
 
           <div class="form-group">
@@ -3796,14 +4009,57 @@
        VANILLA JAVASCRIPT APPLICATION CORE & QR ENGINE
        ========================================================================== -->
   <script>
-    /* Helper to construct authoritative QR URL for equipment */
-    function buildEquipmentUrl(eqId) {
+    function encodeQrEquipmentDetails(eq) {
+      const values = [
+        String(eq.id || '').trim().toUpperCase(),
+        String(eq.name || ''),
+        String(eq.category || ''),
+        String(eq.status || ''),
+        String(eq.condition || ''),
+        String(eq.brand || ''),
+        String(eq.model || ''),
+        String(eq.location || ''),
+        String(eq.notes || ''),
+        String(eq.addedDate || '')
+      ];
+      const bytes = new TextEncoder().encode(JSON.stringify(values));
+      let binary = '';
+      bytes.forEach(byte => { binary += String.fromCharCode(byte); });
+      return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+    }
+
+    function decodeQrEquipmentDetails(token, expectedId) {
+      if (!token || token.length > 6000) return null;
+      try {
+        let base64 = token.replace(/-/g, '+').replace(/_/g, '/');
+        while (base64.length % 4) base64 += '=';
+        const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        const values = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
+        if (!Array.isArray(values) || values.length !== 10 || values.some(value => typeof value !== 'string')) return null;
+
+        const [id, name, category, status, condition, brand, model, location, notes, addedDate] = values;
+        if (!id || id !== expectedId || values.some(value => value.length > 4000)) return null;
+        return { id, name, category, status, condition, brand, model, location, notes, addedDate };
+      } catch (error) {
+        return null;
+      }
+    }
+
+    /* Build a portable QR URL with a read-only equipment snapshot. */
+    function buildEquipmentUrl(eqOrId) {
+      const equipment = eqOrId && typeof eqOrId === 'object' ? eqOrId : null;
+      const eqId = equipment ? equipment.id : eqOrId;
       let baseUrl = window.location.origin;
       if (!baseUrl || baseUrl === 'null' || baseUrl === 'file://') {
         baseUrl = 'http://localhost:3000';
       }
       const pathname = window.location.pathname || '';
-      return `${baseUrl}${pathname}?equipment=${encodeURIComponent(eqId)}`;
+      const params = new URLSearchParams();
+      params.set('equipment', String(eqId || '').trim().toUpperCase());
+      if (equipment) params.set('details', encodeQrEquipmentDetails(equipment));
+      return `${baseUrl}${pathname}?${params.toString()}`;
     }
 
     /* ==========================================================================
@@ -3848,7 +4104,7 @@
         condition: 'Good',
         status: 'Available',
         availabilityStatus: 'Available',
-        location: 'Room 201 – Circuits Lab',
+        location: 'Room 201 â€“ Circuits Lab',
         notes: '4 Channels, 2 GS/s sample rate. Includes two 10x passive voltage probes.',
         addedDate: '2024-01-12',
         qrCodeValue: buildEquipmentUrl('EQ-1001'),
@@ -3866,7 +4122,7 @@
         condition: 'New',
         status: 'Available',
         availabilityStatus: 'Available',
-        location: 'Room 105 – Microbiology Lab',
+        location: 'Room 105 â€“ Microbiology Lab',
         notes: 'LED illumination, 4x, 10x, 40x, 100x oil immersion plan achromat objectives.',
         addedDate: '2024-01-18',
         qrCodeValue: buildEquipmentUrl('EQ-1002'),
@@ -3884,7 +4140,7 @@
         condition: 'Good',
         status: 'Issued',
         availabilityStatus: 'Issued',
-        location: 'Room 302 – Analytical Chemistry',
+        location: 'Room 302 â€“ Analytical Chemistry',
         notes: 'High precision calibration draft shield. Requires level bubble check before use.',
         addedDate: '2024-01-20',
         qrCodeValue: buildEquipmentUrl('EQ-1003'),
@@ -3902,7 +4158,7 @@
         condition: 'Fair',
         status: 'Maintenance',
         availabilityStatus: 'Maintenance',
-        location: 'Room 201 – Circuits Lab',
+        location: 'Room 201 â€“ Circuits Lab',
         notes: 'Channel 1 BNC output connector intermittent. Under repair in lab depot.',
         addedDate: '2024-02-02',
         qrCodeValue: buildEquipmentUrl('EQ-1004'),
@@ -3920,7 +4176,7 @@
         condition: 'Good',
         status: 'Available',
         availabilityStatus: 'Available',
-        location: 'Room 304 – Spectroscopy Lab',
+        location: 'Room 304 â€“ Spectroscopy Lab',
         notes: 'Double-beam optical system, wavelength range 190 to 1100 nm.',
         addedDate: '2024-02-10',
         qrCodeValue: buildEquipmentUrl('EQ-1005'),
@@ -3938,8 +4194,8 @@
         condition: 'Good',
         status: 'Issued',
         availabilityStatus: 'Issued',
-        location: 'Room 110 – MakerLab',
-        notes: 'PLA/Tough PLA compatible. Nozzle temperature up to 280°C.',
+        location: 'Room 110 â€“ MakerLab',
+        notes: 'PLA/Tough PLA compatible. Nozzle temperature up to 280Â°C.',
         addedDate: '2024-02-22',
         qrCodeValue: buildEquipmentUrl('EQ-1006'),
         qrCodeGeneratedAt: '2024-02-22T08:50:00Z',
@@ -3956,7 +4212,7 @@
         condition: 'Good',
         status: 'Available',
         availabilityStatus: 'Available',
-        location: 'Room 408 – Optics Lab',
+        location: 'Room 408 â€“ Optics Lab',
         notes: '632.8 nm Red, 0.8 mW output power. Must use safety goggles at all times.',
         addedDate: '2024-03-01',
         qrCodeValue: buildEquipmentUrl('EQ-1007'),
@@ -3974,7 +4230,7 @@
         condition: 'Good',
         status: 'Available',
         availabilityStatus: 'Available',
-        location: 'Room 201 – Circuits Lab',
+        location: 'Room 201 â€“ Circuits Lab',
         notes: 'Built-in thermometer, CAT III 1000V / CAT IV 600V safety rated.',
         addedDate: '2024-03-05',
         qrCodeValue: buildEquipmentUrl('EQ-1008'),
@@ -3992,7 +4248,7 @@
         condition: 'Damaged',
         status: 'Maintenance',
         availabilityStatus: 'Maintenance',
-        location: 'Room 105 – Microbiology Lab',
+        location: 'Room 105 â€“ Microbiology Lab',
         notes: 'Rotor lock sensor error code E-14. Awaiting motor technician review.',
         addedDate: '2024-03-08',
         qrCodeValue: buildEquipmentUrl('EQ-1009'),
@@ -4010,7 +4266,7 @@
         condition: 'New',
         status: 'Available',
         availabilityStatus: 'Available',
-        location: 'Room 302 – Analytical Chemistry',
+        location: 'Room 302 â€“ Analytical Chemistry',
         notes: '5-inch full color touch screen, includes LV-1 through LV-4 spindle sets.',
         addedDate: '2024-03-12',
         qrCodeValue: buildEquipmentUrl('EQ-1010'),
@@ -4109,16 +4365,21 @@
         if (!localStorage.getItem('labtrack_equipment')) {
           localStorage.setItem('labtrack_equipment', JSON.stringify(SEED_EQUIPMENT));
         } else {
-          // Verify that existing equipment has QR fields
+          // Keep QR labels portable and current with each equipment record.
           const eqList = JSON.parse(localStorage.getItem('labtrack_equipment'));
           let modified = false;
           eqList.forEach(item => {
-            if (!item.qrCodeValue) {
-              item.qrCodeValue = buildEquipmentUrl(item.id);
-              item.qrCodeGeneratedAt = item.addedDate ? `${item.addedDate}T12:00:00Z` : new Date().toISOString();
+            const currentQrUrl = buildEquipmentUrl(item);
+            if (item.qrCodeValue !== currentQrUrl) {
+              item.qrCodeValue = currentQrUrl;
+              item.qrCodeGeneratedAt = new Date().toISOString();
               item.availabilityStatus = item.status;
               item.equipmentId = item.id;
               item.equipmentName = item.name;
+              modified = true;
+            }
+            if (!item.qrCodeGeneratedAt) {
+              item.qrCodeGeneratedAt = item.addedDate ? `${item.addedDate}T12:00:00Z` : new Date().toISOString();
               modified = true;
             }
           });
@@ -4144,7 +4405,18 @@
       setUsers(data) { localStorage.setItem('labtrack_users', JSON.stringify(data)); }
 
       getEquipment() { return JSON.parse(localStorage.getItem('labtrack_equipment') || '[]'); }
-      setEquipment(data) { localStorage.setItem('labtrack_equipment', JSON.stringify(data)); }
+      setEquipment(data) {
+        const now = new Date().toISOString();
+        const updated = data.map(item => {
+          const qrCodeValue = buildEquipmentUrl(item);
+          return {
+            ...item,
+            qrCodeValue,
+            qrCodeGeneratedAt: item.qrCodeValue === qrCodeValue && item.qrCodeGeneratedAt ? item.qrCodeGeneratedAt : now
+          };
+        });
+        localStorage.setItem('labtrack_equipment', JSON.stringify(updated));
+      }
 
       getRequests() { return JSON.parse(localStorage.getItem('labtrack_requests') || '[]'); }
       setRequests(data) { localStorage.setItem('labtrack_requests', JSON.stringify(data)); }
@@ -4351,7 +4623,7 @@
             height: size,
             colorDark: "#0f172a",
             colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
+            correctLevel: QRCode.CorrectLevel.M
           });
         } else {
           targetElement.innerHTML = `<div style="padding:16px; font-weight:700; color:var(--primary);">${payloadUrl}</div>`;
@@ -4370,8 +4642,8 @@
 
         document.getElementById('qr-modal-name').textContent = eq.name;
         document.getElementById('qr-modal-id').textContent = eq.id;
-        document.getElementById('qr-modal-meta').textContent = `${eq.brand || eq.category} • ${eq.location || 'Main Station'}`;
-        document.getElementById('qr-modal-payload-url').textContent = eq.qrCodeValue || buildEquipmentUrl(eq.id);
+        document.getElementById('qr-modal-meta').textContent = `${eq.brand || eq.category} â€¢ ${eq.location || 'Main Station'}`;
+        document.getElementById('qr-modal-payload-url').textContent = eq.qrCodeValue || buildEquipmentUrl(eq);
         
         const genDate = eq.qrCodeGeneratedAt ? new Date(eq.qrCodeGeneratedAt).toLocaleString() : 'Registered at creation';
         document.getElementById('qr-modal-generated-at').textContent = `Generated: ${genDate}`;
@@ -4383,7 +4655,7 @@
         }
 
         const container = document.getElementById('qr-modal-canvas-target');
-        this.renderQRCode(container, eq.qrCodeValue || buildEquipmentUrl(eq.id), 160);
+        this.renderQRCode(container, eq.qrCodeValue || buildEquipmentUrl(eq), 200);
 
         appUI.openModal('modal-qr-view');
       },
@@ -4400,9 +4672,9 @@
         const eq = list.find(e => e.id === this.currentViewingEqId);
         if (!eq) return;
 
-        // Generate updated URL with fresh timestamp query param to guarantee uniqueness
+        // Refresh the QR snapshot and its generated timestamp.
         const timestamp = new Date().toISOString();
-        const freshUrl = `${buildEquipmentUrl(eq.id)}&t=${Date.now()}`;
+        const freshUrl = buildEquipmentUrl(eq);
 
         eq.qrCodeValue = freshUrl;
         eq.qrCodeGeneratedAt = timestamp;
@@ -4412,7 +4684,7 @@
         document.getElementById('qr-modal-generated-at').textContent = `Generated: ${new Date(timestamp).toLocaleString()}`;
         
         const container = document.getElementById('qr-modal-canvas-target');
-        this.renderQRCode(container, freshUrl, 160);
+        this.renderQRCode(container, freshUrl, 200);
 
         showToast(`QR Code regenerated for ${eq.id}!`, 'success');
       },
@@ -4535,7 +4807,7 @@
           setTimeout(() => {
             const target = document.getElementById(canvasHolderId);
             if (target) {
-              this.renderQRCode(target, eq.qrCodeValue || buildEquipmentUrl(eq.id), 130);
+              this.renderQRCode(target, eq.qrCodeValue || buildEquipmentUrl(eq), 180);
             }
           }, 20);
         });
@@ -4894,32 +5166,71 @@
           returnDateInput.value = d.toISOString().split('T')[0];
         }
 
-        // Check if opened via QR Code URL query parameter (?equipment=EQ-XXXX) or hash
+        // Check if opened via a public QR URL query parameter (?equipment=EQ-XXXX) or hash.
         this.checkInitialUrlPayload();
         window.addEventListener('hashchange', () => this.checkInitialUrlPayload());
       },
 
       checkInitialUrlPayload() {
-        // 1. Check Query Param: ?equipment=EQ-1001
         const urlParams = new URLSearchParams(window.location.search);
         let eqId = urlParams.get('equipment');
+        let details = eqId ? decodeQrEquipmentDetails(urlParams.get('details'), eqId.trim().toUpperCase()) : null;
 
-        // 2. Check Hash: #equipment/EQ-1001 or #view-eq=EQ-1001
         if (!eqId && window.location.hash) {
-          const hash = window.location.hash;
-          if (hash.includes('#equipment/')) {
-            eqId = hash.replace('#equipment/', '');
-          } else if (hash.includes('#view-eq=')) {
-            eqId = hash.replace('#view-eq=', '');
+          const hash = window.location.hash.slice(1);
+          if (hash.indexOf('equipment/') === 0) {
+            eqId = hash.slice('equipment/'.length);
+          } else if (hash.indexOf('view-eq=') === 0) {
+            eqId = hash.slice('view-eq='.length);
           }
         }
 
         if (eqId) {
-          eqId = decodeURIComponent(eqId).trim().toUpperCase();
-          setTimeout(() => {
-            this.openEquipmentDetail(eqId);
-          }, 350);
+          try {
+            eqId = decodeURIComponent(eqId).trim().toUpperCase();
+          } catch (error) {
+            eqId = eqId.trim().toUpperCase();
+          }
+          if (!details) details = decodeQrEquipmentDetails(urlParams.get('details'), eqId);
+          this.showPublicEquipmentDetail(eqId, details);
         }
+      },
+
+      showPublicEquipmentDetail(eqId, snapshot) {
+        const screen = document.getElementById('public-equipment-screen');
+        const homeUrl = `${window.location.origin}${window.location.pathname}`;
+        document.getElementById('public-equipment-home').href = homeUrl;
+        document.getElementById('public-equipment-unavailable-home').href = homeUrl;
+        document.getElementById('auth-screen').style.display = 'none';
+        document.getElementById('app-container').style.display = 'none';
+        screen.classList.add('active');
+
+        const equipment = snapshot || store.getEquipment().find(item => String(item.id).toUpperCase() === eqId);
+        const detailsPanel = document.getElementById('public-equipment-details');
+        const unavailablePanel = document.getElementById('public-equipment-unavailable');
+        if (!equipment) {
+          detailsPanel.style.display = 'none';
+          unavailablePanel.hidden = false;
+          document.getElementById('public-equipment-unavailable-message').textContent =
+            `This older QR label only contains equipment ID ${eqId}, and this device has no shared equipment catalog to look it up. Sign in on the device that manages this item, regenerate its QR label, and print the updated label.`;
+          return;
+        }
+
+        detailsPanel.style.display = '';
+        unavailablePanel.hidden = true;
+        const setText = (id, value, fallback = 'Not provided') => {
+          document.getElementById(id).textContent = value || fallback;
+        };
+        setText('public-equipment-category', equipment.category, 'Laboratory equipment');
+        setText('public-equipment-name', equipment.name, 'Unnamed equipment');
+        setText('public-equipment-id', equipment.id);
+        setText('public-equipment-status', equipment.status, 'Status not provided');
+        setText('public-equipment-condition', equipment.condition ? `Condition: ${equipment.condition}` : '', 'Condition not provided');
+        setText('public-equipment-brand', equipment.brand);
+        setText('public-equipment-model', equipment.model);
+        setText('public-equipment-location', equipment.location);
+        setText('public-equipment-added', equipment.addedDate);
+        setText('public-equipment-notes', equipment.notes, 'No specifications or notes provided.');
       },
 
       initSession() {
@@ -5508,6 +5819,8 @@
               location,
               notes
             };
+            list[idx].qrCodeValue = buildEquipmentUrl(list[idx]);
+            list[idx].qrCodeGeneratedAt = new Date().toISOString();
             store.setEquipment(list);
             store.logTransaction('EQUIPMENT_UPDATE', `Equipment ${name} (${eqId}) details updated`, eqId);
             showToast(`Equipment ${eqId} updated successfully.`, 'success');
@@ -5519,7 +5832,6 @@
             return;
           }
 
-          const qrUrl = buildEquipmentUrl(eqId);
           const generatedAt = new Date().toISOString();
 
           const newItem = {
@@ -5536,9 +5848,9 @@
             location,
             notes,
             addedDate: new Date().toISOString().split('T')[0],
-            qrCodeValue: qrUrl,
             qrCodeGeneratedAt: generatedAt
           };
+          newItem.qrCodeValue = buildEquipmentUrl(newItem);
 
           list.unshift(newItem);
           store.setEquipment(list);
@@ -5598,7 +5910,7 @@
 
         document.getElementById('req-modal-eq-id').value = eq.id;
         document.getElementById('req-modal-eq-display-name').textContent = eq.name;
-        document.getElementById('req-modal-eq-display-id').textContent = `${eq.id} • ${eq.category} • Condition: ${eq.condition}`;
+        document.getElementById('req-modal-eq-display-id').textContent = `${eq.id} â€¢ ${eq.category} â€¢ Condition: ${eq.condition}`;
         document.getElementById('req-modal-purpose').value = '';
         document.getElementById('req-modal-notes').value = '';
 
@@ -6283,24 +6595,24 @@
               </div>
               <div>
                 <span style="color:var(--text-muted); font-size:11px; text-transform:uppercase; font-weight:700; display:block;">Registered Email</span>
-                <span>${user.email || '—'}</span>
+                <span>${user.email || 'â€”'}</span>
               </div>
               <div>
                 <span style="color:var(--text-muted); font-size:11px; text-transform:uppercase; font-weight:700; display:block;">Phone Number</span>
-                <span>${user.phone || '—'}</span>
+                <span>${user.phone || 'â€”'}</span>
               </div>
               <div>
                 <span style="color:var(--text-muted); font-size:11px; text-transform:uppercase; font-weight:700; display:block;">Department</span>
-                <span>${user.department || '—'}</span>
+                <span>${user.department || 'â€”'}</span>
               </div>
               ${user.role === 'student' ? `
               <div>
                 <span style="color:var(--text-muted); font-size:11px; text-transform:uppercase; font-weight:700; display:block;">Academic Semester</span>
-                <span>${user.semester || '—'}</span>
+                <span>${user.semester || 'â€”'}</span>
               </div>` : ''}
               <div>
                 <span style="color:var(--text-muted); font-size:11px; text-transform:uppercase; font-weight:700; display:block;">Member Since</span>
-                <span>${user.joined || '—'}</span>
+                <span>${user.joined || 'â€”'}</span>
               </div>
             </div>
 
@@ -6441,7 +6753,7 @@
             ? `<span class="badge badge-good"><i class="fa-solid fa-circle" style="font-size:8px; margin-right:4px;"></i>Active</span>` 
             : `<span class="badge badge-damaged"><i class="fa-solid fa-circle" style="font-size:8px; margin-right:4px;"></i>Disabled</span>`;
 
-          const deptInfo = u.department ? `<div style="font-size:11.5px; color:var(--text-muted);">${u.department} ${u.semester ? '• ' + u.semester : ''}</div>` : '';
+          const deptInfo = u.department ? `<div style="font-size:11.5px; color:var(--text-muted);">${u.department} ${u.semester ? 'â€¢ ' + u.semester : ''}</div>` : '';
           const phoneInfo = u.phone ? `<div style="font-size:11px; color:var(--text-muted); margin-top:2px;"><i class="fa-solid fa-phone" style="font-size:9px;"></i> ${u.phone}</div>` : '';
 
           return `
@@ -6455,8 +6767,8 @@
                 ${phoneInfo}
               </td>
               <td>${roleBadge}</td>
-              <td><span style="font-family:'JetBrains Mono'; font-size:12px; font-weight:700;">${u.studentId || u.idNumber || '—'}</span></td>
-              <td style="font-size:12.5px;">${u.joined || '—'}</td>
+              <td><span style="font-family:'JetBrains Mono'; font-size:12px; font-weight:700;">${u.studentId || u.idNumber || 'â€”'}</span></td>
+              <td style="font-size:12.5px;">${u.joined || 'â€”'}</td>
               <td>${statusBadge}</td>
               <td style="text-align:right;">
                 <div class="table-actions" style="justify-content:flex-end; gap:6px;">
